@@ -126,24 +126,26 @@ all_data <- cbind(x_data_sub, y_data, subject_data)
 str(all_data) # 'data.frame':    10299 obs. of  68 variables
 
 #################################################################
-# 4. Create a second, independent tidy data set with the average of each variable
-# for each activity and each subject
+# 5. Create an independent tidy data set 
 ##################################################################
 
-# 66 <- 68 columns but last two (activity & subject)
+# with the average of each variable for each activity and each subject
+
 
 averages_data_raw <- ddply(all_data, .(subject, activity), function(x) colMeans(x[, 1:66]))
 namevariables<- as.vector (colnames(averages_data_raw)[3:68])
 str(namevariables)
 
+
 str (averages_data_raw, vec.len=3, list.len=10) # 'data.frame':    180 obs. of  68 variables
 averages_data_raw[1:5, 1:6]
+
 
 averages_data <- melt(averages_data_raw,id=c( "subject","activity"),
                            measure.vars=namevariables)
 
 # 180*66
-str (averages_data) # 'data.frame':    180 obs. of  66 variables
+str (averages_data) # 'data.frame':    11880 obs. of  4 variables
 averages_data[order(averages_data$subject, averages_data$variable),][1:8,]
 averages_data[1:8, 1:4]
 
